@@ -1,9 +1,16 @@
-import './style.css'
+import './assets/styles.scss'
 import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
+import { Login } from './Pages/index.ts';
+import Handlebars from 'handlebars';
+import * as Components from './components'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+Object.entries(Components).forEach(([name, component]) => {
+  Handlebars.registerPartial(name, component);
+});
+
+/*document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="${viteLogo}" class="logo" alt="Vite logo" />
@@ -20,5 +27,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </p>
   </div>
 `
-
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+*/
+
+
+
+const root = document.querySelector<HTMLDivElement>('#app')!
+const handlebarsFunct = Handlebars.compile(Login);
+root.innerHTML = handlebarsFunct({});
